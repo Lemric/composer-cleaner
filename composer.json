@@ -1,32 +1,38 @@
 {
-	"name": "dg/composer-cleaner",
+	"name": "lemric/composer-cleaner",
 	"type": "composer-plugin",
 	"description": "Victor The Cleaner: removes unnecessary files from vendor directory.",
 	"keywords": ["composer"],
 	"license": ["BSD-3-Clause"],
 	"authors": [
 		{
+			"name": "Lemric",
+			"homepage": "https://lemric.com"
+		},
+		{
 			"name": "David Grudl",
 			"homepage": "https://davidgrudl.com"
 		}
 	],
 	"require": {
-		"php": ">=7.1",
-		"composer-plugin-api": "^1.0 || ^2.0"
+		"php": "^8.3",
+		"composer-plugin-api": "^2.0"
 	},
 	"require-dev": {
 		"composer/composer": "^1.10 || ^2.0",
-		"nette/tester": "^2.2",
-		"phpstan/phpstan": "^0.12"
+		"phpstan/phpstan": "^1.11.10",
+		"rector/rector": "^1.2.3"
 	},
 	"autoload": {
-		"classmap": ["src/"]
+		"psr-4": {
+			"Lemric\\ComposerCleaner\\": "src"
+		}
 	},
 	"scripts": {
 		"phpstan": "phpstan analyse",
-		"tester": "tester tests -s"
+		"rector": "rector"
 	},
 	"extra": {
-		"class": "DG\\ComposerCleaner\\Plugin"
+		"class": "Lemric\\ComposerCleaner\\Plugin"
 	}
 }

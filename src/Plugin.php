@@ -1,8 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
-namespace DG\ComposerCleaner;
+namespace Lemric\ComposerCleaner;
 
 use Composer\Composer;
 use Composer\EventDispatcher\EventSubscriberInterface;
@@ -16,23 +14,27 @@ use Composer\Util\ProcessExecutor;
 
 class Plugin implements PluginInterface, EventSubscriberInterface
 {
-	public function activate(Composer $composer, IOInterface $io)
+	#[\Override]
+ public function activate(Composer $composer, IOInterface $io)
 	{
 	}
 
 
-	public function deactivate(Composer $composer, IOInterface $io)
+	#[\Override]
+ public function deactivate(Composer $composer, IOInterface $io)
 	{
 	}
 
 
-	public function uninstall(Composer $composer, IOInterface $io)
+	#[\Override]
+ public function uninstall(Composer $composer, IOInterface $io)
 	{
 	}
 
 
-	public static function getSubscribedEvents()
-	{
+	#[\Override]
+ public static function getSubscribedEvents(): array
+    {
 		return [
 			ScriptEvents::POST_UPDATE_CMD => 'clean',
 			ScriptEvents::POST_INSTALL_CMD => 'clean',
@@ -40,8 +42,8 @@ class Plugin implements PluginInterface, EventSubscriberInterface
 	}
 
 
-	public function clean(Event $event)
-	{
+	public function clean(Event $event): void
+    {
 		$vendorDir = $event->getComposer()->getConfig()->get('vendor-dir');
 		$extra = $event->getComposer()->getPackage()->getExtra();
 		$ignorePaths = $extra['cleaner-ignore'] ?? (array) $event->getComposer()->getConfig()->get('cleaner-ignore');
